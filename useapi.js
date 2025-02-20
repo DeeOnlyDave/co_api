@@ -24,6 +24,8 @@ app.get('/first-user', async (req, res) => {
     // Query the first user from the users table
     const result = await sql.query('SELECT TOP 1 CONCAT(first_name,last_name) AS full_name FROM Customers'); // Adjust your query as needed
 
+    console.log('Query Result:', result); // Log result to check the output
+
     // Check if a user was found
     if (result.recordset.length > 0) {
       // Send the first user's name as the response
