@@ -37,7 +37,7 @@ app.get('/user', async (req, res) => {
 
     // Check if a user was found
     if (result.recordset.length > 0) {
-      res.json(result.recordset[0]); // Return full user info
+      res.json(result); // Return full user info
     } else {
       res.status(404).json({ message: 'No users found' });
     }
