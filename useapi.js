@@ -1,8 +1,11 @@
 const express = require('express')
 const app = express()
+const cors = require('cors');
 const port = 5000
 
 const sql = require('mssql')
+
+app.use(cors());
 
 // Azure SQL connection configuration
 const config = {
