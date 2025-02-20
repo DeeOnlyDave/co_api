@@ -33,11 +33,11 @@ app.get('/user', async (req, res) => {
       SELECT first_name, last_name, money FROM Customers 
       WHERE first_name = ${first_name}`;
 
-    console.log('Query Result:', result.recordset); // Log result to check the output
+    console.log('Query Result:', result); // Log result to check the output
 
     // Check if a user was found
     if (result.recordset.length > 0) {
-      res.json(result.recordset); // Return full user info
+      res.json(result); // Return full user info
     } else {
       res.status(404).json({ message: 'No users found' });
     }
