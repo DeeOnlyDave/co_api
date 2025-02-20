@@ -19,9 +19,7 @@ const config = {
 app.get('/first-user', async (req, res) => {
   try {
     // Connect to the database
-    console.log("test");
     await sql.connect(config);
-    console.log("test2");
 
     // Query the first user from the users table
     const result = await sql.query('SELECT TOP 1 CONCAT(first_name,last_name) AS full_name FROM Customers'); // Adjust your query as needed
@@ -31,7 +29,7 @@ app.get('/first-user', async (req, res) => {
     // Check if a user was found
     if (result.recordset.length > 0) {
       // Send the first user's name as the response
-      res.json({ firstUserName: result.recordset[0].name });
+      res.json({ firstUserName: result.recordset[0].full_name });
     } else {
       res.status(404).json({ message: 'No users found' });
     }
