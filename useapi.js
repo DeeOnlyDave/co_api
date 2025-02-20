@@ -19,7 +19,9 @@ const config = {
 app.get('/first-user', async (req, res) => {
   try {
     // Connect to the database
+    console.log("test");
     await sql.connect(config);
+    console.log("test2");
 
     // Query the first user from the users table
     const result = await sql.query('SELECT TOP 1 CONCAT(first_name,last_name) AS full_name FROM Customers'); // Adjust your query as needed
