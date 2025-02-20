@@ -16,20 +16,28 @@ const config = {
   }
 };
 
-app.get('/first-user', async (req, res) => {
+app.get('/user', async (req, res) => {
   try {
+
+    const {first_name} = req.query;
+
+    if (!first_name) {
+      return res.status(400).json({ message: "Missing first_name parameter" });
+    }
     // Connect to the database
     await sql.connect(config);
 
     // Query the first user from the users table
-    const result = await sql.query('SELECT TOP 1 CONCAT(first_name,last_name) AS full_name FROM Customers'); // Adjust your query as needed
+    //const result = await sql.query('SELECT TOP 1 CONCAT(first_name,last_name) AS full_name FROM Customers');
+    const result = await sql.query`
+      SELECT first_name, last_name, money FROM Customers 
+      WHERE first_name = ${first_name}`;
 
     console.log('Query Result:', result); // Log result to check the output
 
     // Check if a user was found
     if (result.recordset.length > 0) {
-      // Send the first user's name as the response
-      res.json({ firstUserName: result.recordset[0].full_name });
+      res.json(result.recordset[0]); // Return full user info
     } else {
       res.status(404).json({ message: 'No users found' });
     }
