@@ -22,11 +22,13 @@ const config = {
 app.get('/user', async (req, res) => {
   try {
 
-    const {first_name} = req.query;
+    const {first_name, session_id, pseudo_id } = req.query;
 
     if (!first_name) {
       return res.status(400).json({ message: "Missing first_name parameter" });
     }
+
+    console.log(`API Request - First Name: ${first_name}, Session ID: ${session_id}, Pseudo ID: ${pseudo_id}`);
     // Connect to the database
     await sql.connect(config);
 
