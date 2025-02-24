@@ -22,13 +22,13 @@ const config = {
 app.get('/user', async (req, res) => {
   try {
 
-    const {first_name, session_id, pseudo_id } = req.query;
+    const {first_name, session_id, pseudo_id, formatDate, timestamp} = req.query;
 
     if (!first_name) {
       return res.status(400).json({ message: "Missing first_name parameter" });
     }
 
-    console.log(`API Request - First Name: ${first_name}, Session ID: ${session_id}, Pseudo ID: ${pseudo_id}`);
+    console.log(`API Request - First Name: ${first_name}, Session ID: ${session_id}, Pseudo ID: ${pseudo_id}, Date: ${formatDate}, Time: ${timestamp}`);
     // Connect to the database
     await sql.connect(config);
 
