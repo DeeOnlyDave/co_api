@@ -32,8 +32,11 @@ app.get('/user', async (req, res) => {
     // Connect to the database
     await sql.connect(config);
 
+    await sql.query`
+      INSERT INTO API_Info (ga_psuedo, ga_session, user_name, date, timestamp)
+      VALUES (${pseudo_id}, ${session_id},${first_name}, ${date}, ${timestamp})`;
+
     // Query the first user from the users table
-    //const result = await sql.query('SELECT TOP 1 CONCAT(first_name,last_name) AS full_name FROM Customers');
     const result = await sql.query`
       SELECT first_name, last_name, money FROM Customers 
       WHERE first_name = ${first_name}`;
