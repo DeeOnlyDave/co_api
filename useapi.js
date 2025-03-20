@@ -38,7 +38,7 @@ app.get('/user', async (req, res) => {
 
     // Query the first user from the users table
     const result = await sql.query`
-      SELECT first_name, last_name, money FROM Customers 
+      SELECT first_name, last_name, money, phone, age, gender, email, credit, socialsecurit FROM Customers 
       WHERE first_name = ${first_name}`;
 
     console.log('Query Result:', result.recordset); // Log result to check the output
