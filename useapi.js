@@ -32,14 +32,17 @@ app.get('/user', async (req, res) => {
     // Connect to the database
     await sql.connect(config);
 
-    await sql.query`
-      INSERT INTO API_Info (ga_psuedo, ga_session, user_name, date, timestamp)
-      VALUES (${pseudo_id}, ${session_id},${first_name}, ${date}, ${timestamp})`;
-
     // Query the first user from the users table
     const result = await sql.query`
       SELECT first_name, last_name, money, phone, age, gender, email, credit, socialsecurit FROM Customers 
       WHERE first_name = ${first_name}`;
+
+    // Extract only the required fields (credit, money, gender)
+    const filteredData = JSON.stringify(result.recordset.map(({ credit, money, gender }) => ({ credit, money, gender })));
+
+    await sql.query`
+      INSERT INTO API_Info (ga_psuedo, ga_session, user_name, date, timestamp, jsondata)
+      VALUES (${pseudo_id}, ${session_id},${first_name}, ${date}, ${timestamp}, ${filteredData})`;
 
     console.log('Query Result:', result.recordset); // Log result to check the output
 
